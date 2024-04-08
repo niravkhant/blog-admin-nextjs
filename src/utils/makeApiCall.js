@@ -1,6 +1,7 @@
 // makeApiCall.js
 import axios from "axios";
 import { BASE_URL } from "./constants";
+import Cookies from "js-cookie";
 
 const makeApiCall = async (method, endpoint, formData, onSuccess, onError, headers = {}) => {
   try {
@@ -8,7 +9,7 @@ const makeApiCall = async (method, endpoint, formData, onSuccess, onError, heade
       method,
       url: `${BASE_URL}/${endpoint}`,
       data: formData,
-      headers: { ...headers },
+      headers: { ...headers,  Authorization: `Bearer ${Cookies.get("accessToken")}`, 'Content-Type': 'multipart/form-data'},
     });
     onSuccess(res?.data);
   } catch (error) {

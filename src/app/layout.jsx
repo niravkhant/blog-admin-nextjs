@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/users/Navbar";
 import { AuthProvider } from "@/context/authContext";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

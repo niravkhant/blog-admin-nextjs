@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("accessToken"));
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   let isLoggedIN = !!token;
 
   const setAccessTokenCookies = (token) => {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   // JWT AUTHENICATION : to get the currenty logged in user data
 
-  const userAuthentication = () => {
+  const userAuthentication = async () => {
     const onSuccess = (res) => {
       setCurrentUser(res?.data);
     };
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       setIsLoading(true);
-      makeApiCall("GET", "users/current-user", {}, onSuccess, onError, headers);
+      await makeApiCall("GET", "users/current-user", {}, onSuccess, onError, headers);
       setIsLoading(false);
     } catch (error) {
       onError(error);

@@ -4,22 +4,30 @@ import { useState } from "react";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { useAuth } from "@/context/authContext";
 import Loader2 from "@/components/loader/Loader2";
+import { useRouter } from "next/navigation";
 
 const AddPost = () => {
+  const router = useRouter();
   const { isLoading, setIsLoading } = useAuth();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     categories: "",
-    image: "",
+    image: null,
     status: "",
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (e.target.type === "file") {
+      const file = e.target.files[0];
+      setFormData({ ...formData, image: file });
+    } else {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      console.log(name ,value )
+    }
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
       console.log(res);
@@ -36,6 +44,7 @@ const AddPost = () => {
     const onError = (error) => {
       console.error("Error 400: Error in creating new post", error);
     };
+
     // setIsLoading(true);
     makeApiCall("POST", "blog/create-blog", formData, onSuccess, onError);
     // setIsLoading(false);
@@ -56,11 +65,11 @@ const AddPost = () => {
             <h2 className="text-center text-2xl font-bold leading-tight text-black">Add New Post</h2>
             <p className="mt-2 text-center text-base text-gray-600">
               Want to view all posts?
-              <Link href="/admin/all-posts" title="" className="font-medium text-black transition-all duration-200 hover:underline">
+              <Link href="/admin/all-posts" className="font-medium text-black transition-all duration-200 hover:underline">
                 View all
               </Link>
             </p>
-            <form action="#" method="POST" className="mt-8">
+            <form className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label htmlFor="title" className="text-base font-medium text-gray-900">
@@ -136,7 +145,6 @@ const AddPost = () => {
                       id="imagefile"
                       placeholder="Blog Image"
                       name="image"
-                      value={formData.image}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -160,7 +168,7 @@ const AddPost = () => {
                 </div>
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     onClick={handleSubmit}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
