@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/authContext";
+import CommonPopup from "../common/commonPopup";
 
 const Sidebar = () => {
   const [active, setActive] = useState("dashboard");
   const {currentUser} = useAuth();
   const router = usePathname();
-
+  const [commonPopupOpen, setCommonPopupOpen] = useState(false);
+  const router1 = useRouter();
   const navigation = [
     {
       href: "/admin/dashboard",
@@ -91,7 +93,7 @@ const Sidebar = () => {
       ),
     },
   ];
-
+console.log(commonPopupOpen);
   const navsFooter = [
     {
       href: "javascript:void(0)",
@@ -135,7 +137,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: "logout",
       name: "Logout",
       icon: (
         <svg
@@ -157,6 +159,10 @@ const Sidebar = () => {
   ];
 
   const { isLoggedIN } = useAuth();
+
+  const handleLogout = ()=>{
+    router1.push("admin/logout");
+  }
 
   if (!isLoggedIN) {
     return;
@@ -188,21 +194,21 @@ const Sidebar = () => {
             <div>
               <ul className="px-4 pb-4 text-sm font-medium">
                 {navsFooter.map((item, idx) => (
-                  <li key={idx}>
-                    <a
+                  <li key={idx} onClick={item.name == "Logout" ? () => setCommonPopupOpen("logout") : ""} >
+                    <Link
                       href={item.href}
                       className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                     >
                       <div className="text-gray-500">{item.icon}</div>
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
               <div className="py-4 px-4 border-t">
                 <div className="flex items-center gap-x-4">
                   <img
-                    src="https://randomuser.me/api/portraits/women/79.jpg"
+                    src="/images/profile.png"
                     className="w-12 h-12 rounded-full"
                   />
                   <div>
@@ -219,6 +225,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+        {commonPopupOpen === "logout" ? <CommonPopup titleMessage={"Are you want to Logout?"} actionButtonText={"Logout"} handleClosePopup={setCommonPopupOpen(false)} handleMainEvent={handleLogout} /> : ""}
       </nav>
   );
 };
