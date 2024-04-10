@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 // Profile Dropdown
 const ProfileDropDown = (props) => {
@@ -63,6 +64,7 @@ const ProfileDropDown = (props) => {
 const Navbar = () => {
   const pathname = usePathname();
   // console.log(pathname);
+  const {isLoggedIN} = useAuth();
 
   if (pathname.startsWith("/admin")) {
     return;
@@ -122,6 +124,9 @@ const Navbar = () => {
                 placeholder="Search"
               />
             </form>
+
+            {isLoggedIN ?
+              <>
             <ProfileDropDown class="hidden lg:block" />
             <button
               className="outline-none text-gray-400 block lg:hidden"
@@ -159,12 +164,13 @@ const Navbar = () => {
                 </svg>
               )}
             </button>
-            <Link
+            </> 
+            : <Link
               href="/admin"
               className="w-full py-3 px-4 font-medium text-sm text-center text-white bg-black hover:bg-black/80 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
             >
               Login
-            </Link>
+            </Link>}     
           </div>
         </div>
       </div>

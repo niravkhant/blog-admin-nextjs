@@ -93,7 +93,6 @@ const Sidebar = () => {
       ),
     },
   ];
-console.log(commonPopupOpen);
   const navsFooter = [
     {
       href: "javascript:void(0)",

@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/users/Navbar";
 import { AuthProvider } from "@/context/authContext";
-import { ToastContainer } from "react-toastify";
+import {  ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,15 +21,15 @@ export default function RootLayout({ children }) {
           {children}
           <ToastContainer
             position="top-right"
-            autoClose={2000}
+            autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
             rtl={false}
             pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
+            draggable={false}
+            pauseOnHover={false}
+            theme="colored"
           />
         </AuthProvider>
       </body>

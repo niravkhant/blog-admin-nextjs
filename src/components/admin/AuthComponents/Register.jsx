@@ -6,6 +6,7 @@ import {makeApiCall} from "@/utils/makeApiCall";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { isLoading, setIsLoading } = useAuth();
@@ -38,6 +39,10 @@ const Register = () => {
     };
     const onError = (error) => {
       console.error("Error 409: Frontend form submit", error);
+      toast.error(`${error.response.data.message}`, {
+        progress: undefined,
+        transition: Bounce,
+        });
       // setIsLoading(false);
     };
     setIsLoading(true);

@@ -45,8 +45,12 @@ const Login = () => {
         password: "",
       });
     };
-    const onError = (res) => {
-      console.error("Error 409: Frontend Login Error", res);
+    const onError = (error) => {
+      console.error("Error 409: Frontend Login Error", error);
+      toast.error(`${error.response.data.message}`, {
+        progress: undefined,
+        transition: Bounce,
+        });
       setIsLoading(false);
     };
     setIsLoading(true);

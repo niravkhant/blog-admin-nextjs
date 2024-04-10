@@ -5,6 +5,7 @@ import { makeApiCall } from "@/utils/makeApiCall";
 import { useAuth } from "@/context/authContext";
 import Loader2 from "@/components/loader/Loader2";
 import { useRouter } from "next/navigation";
+import { Bounce, toast } from "react-toastify";
 
 const AddPost = () => {
   const router = useRouter();
@@ -30,6 +31,10 @@ const AddPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
+      toast.success(`${res.message}`, {
+        progress: undefined,
+        transition: Bounce,
+        });
       console.log(res);
       setFormData({
         title: "",
@@ -42,7 +47,11 @@ const AddPost = () => {
       console.log("Post created successfully");
     };
     const onError = (error) => {
-      console.error("Error 400: Error in creating new post", error);
+      console.error("Error 400: Error in creating new post", error.response);
+      toast.error(`${error.response.data.message}`, {
+        progress: undefined,
+        transition: Bounce,
+        });
     };
 
     // setIsLoading(true);

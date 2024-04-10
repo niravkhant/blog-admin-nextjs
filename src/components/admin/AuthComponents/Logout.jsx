@@ -27,6 +27,10 @@ const Logout = () => {
       }
       const onError = (error) => {
         console.error("Error 409: User Logout Error", error);
+        toast.error(`${error.response.data.message}`, {
+          progress: undefined,
+          transition: Bounce,
+          });
       };
 
     makeApiCall("POST", "users/logout", {}, onSuccess, onError, {});

@@ -22,15 +22,7 @@ const AllPosts = () => {
   const handleDeletePost = async () => {
     const onSuccess = (res) => {
       setDeletePostId(null);
-      toast.success("Post Deleted", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+      toast.info(`${res.message}`, {
         transition: Bounce,
       });
       fetchAllBlogs();
