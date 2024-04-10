@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
@@ -8,11 +8,12 @@ import { useAuth } from "@/context/authContext";
 const ProfileDropDown = (props) => {
   const [state, setState] = useState(false);
   const profileRef = useRef();
-
+  const {currentUser} = useAuth();
+console.log(currentUser)
   const navigation = [
     { title: "Dashboard", path: "javascript:void(0)" },
     { title: "Settings", path: "javascript:void(0)" },
-    { title: "Log out", path: "javascript:void(0)" },
+    { title: "Log out", path: "admin/logout" },
   ];
 
   return (
@@ -24,13 +25,13 @@ const ProfileDropDown = (props) => {
           onClick={() => setState(!state)}
         >
           <img
-            src="https://randomuser.me/api/portraits/men/46.jpg"
+            src="/images/profile.png"
             className="w-full h-full rounded-full"
           />
         </button>
-        <div className="lg:hidden">
-          <span className="block">Micheal John</span>
-          <span className="block text-sm text-gray-500">john@gmail.com</span>
+        <div className="">
+          <span className="block">{currentUser?.fullname}</span>
+          <span className="block text-sm text-gray-500">{currentUser?.email}</span>
         </div>
       </div>
       <ul
@@ -40,13 +41,13 @@ const ProfileDropDown = (props) => {
       >
         {navigation.map((item, idx) => (
           <li>
-            <a
+            <Link
               key={idx}
               className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5"
               href={item.path}
             >
               {item.title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
