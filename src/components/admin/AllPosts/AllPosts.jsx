@@ -38,7 +38,6 @@ const AllPosts = () => {
   };
   useEffect(() => {
     fetchAllBlogs();
-    fetchAllCategory();
   }, []);
 // MARK: return code
   return (
