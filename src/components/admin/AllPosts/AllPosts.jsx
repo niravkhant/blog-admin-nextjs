@@ -8,6 +8,7 @@ import { Bounce, toast } from "react-toastify";
 const AllPosts = () => {
   const [deletePostId, setDeletePostId] = useState();
   const [blogs, setBlogs] = useState();
+  
   const [deleteModal, setdeleteModal] = useState(false);
   const fetchAllBlogs = async () => {
     const onSuccess = (res) => {
@@ -19,6 +20,7 @@ const AllPosts = () => {
     };
     await makeApiCall("GET", "blog/get-all-blogs", {}, onSuccess, onError);
   };
+ 
   const handleDeletePost = async () => {
     const onSuccess = (res) => {
       setDeletePostId(null);
@@ -36,8 +38,9 @@ const AllPosts = () => {
   };
   useEffect(() => {
     fetchAllBlogs();
+    fetchAllCategory();
   }, []);
-
+// MARK: return code
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-2">

@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { useAuth } from "@/context/authContext";
 import Loader2 from "@/components/loader/Loader2";
 import { useRouter } from "next/navigation";
 import { Bounce, toast } from "react-toastify";
+import AddCategory from "@/components/common/AddCategory";
 
 const AddPost = () => {
   const router = useRouter();
@@ -17,6 +18,8 @@ const AddPost = () => {
     image: null,
     status: "",
   });
+  const [blogCategory, setBlogCategory] = useState();
+  const [modalShow, setModalShow] = useState("");
 
   const handleInputChange = (e) => {
     if (e.target.type === "file") {
@@ -59,13 +62,26 @@ const AddPost = () => {
     // setIsLoading(false);
   };
 
-  const [modalShow, setModalShow] = useState("");
+  const fetchAllCategory = async () => {
+    const onSuccess = (res) => {
+      console.log(res);
+      setBlogCategory(res.data);
+    };
+    const onError = (error) => {
+      console.error("Error 409: Blog Categories Fetch error", error);
+    };
+    await makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
+  };
+
 
   const handlePopupOpen = (e) => {
     e.preventDefault();
     let attrval = e.target.getAttribute("model-target");
     setModalShow(attrval);
   };
+  useEffect(() => {
+    fetchAllCategory();
+  }, []);
   return (
     <>
       <section>
@@ -122,15 +138,16 @@ const AddPost = () => {
                     <select
                       name="categories"
                       id="category"
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 capitalize w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       value={formData.categories}
                       onChange={handleInputChange}
                     >
                       <option className="text-gray-400" value="" disabled selected hidden>
                         Select Category
                       </option>
-                      <option value="sports">sports</option>
-                      <option value="jobs">jobs</option>
+                      {blogCategory?.map((category) => (
+                        <option value={category.name}>{category.name}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="mt-2">
@@ -189,9 +206,9 @@ const AddPost = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="ml-2"
                     >
                       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -206,45 +223,7 @@ const AddPost = () => {
         {isLoading && <Loader2 />}
       </section>
       {modalShow === "addcategory" && (
-        <>
-          <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="fixed inset-0 w-full h-full bg-black bg-opacity-40">
-              <div className="fixed inset-0 w-full h-full" />
-              <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg mx-auto px-4">
-                <div className="bg-white rounded-md shadow-lg px-4 py-6">
-                  <div className="flex items-center justify-end">
-                    <button className="p-2 text-gray-400 rounded-md hover:bg-gray-100" onClick={() => setModalShow(false)}>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                          fillRule="evenodd"
-                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="max-w-sm mx-auto space-y-3 text-center">
-                    <h2 className="text-lg font-medium text-gray-800">Add new category</h2>
-                    <p className="text-sm text-gray-600">Add new category to show in select options</p>
-                    <div className="relative text-start">
-                      <label className="text-start px-1" htmlFor="newcategory">
-                        New Category
-                      </label>
-                      <input
-                        className="w-full mt-1 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                        placeholder="category name"
-                        id="newcategory"
-                      />
-                    </div>
-                    <button className="w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-black hover:bg-black/80 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
-                      Add category
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
+        <AddCategory onclick={() => setModalShow(false)}/>
       )}
     </>
   );

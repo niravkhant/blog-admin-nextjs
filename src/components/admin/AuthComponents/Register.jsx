@@ -6,7 +6,7 @@ import {makeApiCall} from "@/utils/makeApiCall";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 
 const Register = () => {
   const { isLoading, setIsLoading } = useAuth();

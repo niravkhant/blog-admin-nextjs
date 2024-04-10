@@ -15,13 +15,6 @@ const ProfileDropDown = (props) => {
     { title: "Log out", path: "javascript:void(0)" },
   ];
 
-  useEffect(() => {
-    const handleDropDown = (e) => {
-      if (!profileRef.current.contains(e.target)) setState(false);
-    };
-    document.addEventListener("click", handleDropDown);
-  }, []);
-
   return (
     <div className={`relative ${props.class}`}>
       <div className="flex items-center space-x-4">

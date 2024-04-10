@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 import { makeApiCall } from "@/utils/makeApiCall";
+import { Bounce, toast } from "react-toastify";
 
 const Logout = () => {
   const { logoutUser } = useAuth();
@@ -11,17 +12,10 @@ const Logout = () => {
 
   const handleLogout = ()=>{
       const onSuccess = (res)=>{
-        toast.success("Logout Successfully", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
+        toast.success(`${res.message}`, {
           progress: undefined,
-          theme: "colored",
           transition: Bounce,
-        });
+          });
         console.log(res.data);
         router.push("/admin")
       }
