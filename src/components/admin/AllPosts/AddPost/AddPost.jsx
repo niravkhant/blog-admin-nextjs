@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { makeApiCall } from "@/utils/makeApiCall";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/contextProvider";
 import Loader2 from "@/components/loader/Loader2";
 import { useRouter } from "next/navigation";
 import { Bounce, toast } from "react-toastify";
@@ -28,7 +28,7 @@ const AddPost = () => {
     } else {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
-      console.log(name ,value )
+      console.log(name, value);
     }
   };
   const handleSubmit = (e) => {
@@ -37,7 +37,7 @@ const AddPost = () => {
       toast.success(`${res.message}`, {
         progress: undefined,
         transition: Bounce,
-        });
+      });
       console.log(res);
       setFormData({
         title: "",
@@ -54,7 +54,7 @@ const AddPost = () => {
       toast.error(`${error.response.data.message}`, {
         progress: undefined,
         transition: Bounce,
-        });
+      });
     };
 
     // setIsLoading(true);
@@ -72,7 +72,6 @@ const AddPost = () => {
     };
     await makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
   };
-
 
   const handlePopupOpen = (e) => {
     e.preventDefault();
@@ -222,9 +221,7 @@ const AddPost = () => {
         </div>
         {isLoading && <Loader2 />}
       </section>
-      {modalShow === "addcategory" && (
-        <AddCategory onclick={() => setModalShow(false)} afterSubmitCall={fetchAllCategory()}/>
-      )}
+      {modalShow === "addcategory" && <AddCategory onclick={() => setModalShow(false)} afterSubmitCall={fetchAllCategory()} />}
     </>
   );
 };

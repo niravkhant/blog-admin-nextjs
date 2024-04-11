@@ -1,11 +1,9 @@
 import styles from "@/components/users/Blogcard/CardSingleBlog.module.css";
 import Image from "next/image";
 
-const CardBlog = () => {
+const CardBlog = ({key,author,categories,description,image,title}) => {
   return (
-    <>
-      <>
-      <div className={styles["blogCardWidth"]}>
+      <div className={styles["blogCardWidth"]} key={key}>
         <div className={`${styles["blogCardMain"]} ${styles["halfWidthCard"]}`}>
           <div className={styles["row"]}>
             <div className={styles["w-full"]}>
@@ -15,7 +13,7 @@ const CardBlog = () => {
                     width={200}
                     height={100}
                     className={`${styles["img-fluid"]} ${styles["blog"]}`}
-                    src="next.svg"
+                    src={image}
                     alt="blog img"
                   />
                 </div>
@@ -24,25 +22,20 @@ const CardBlog = () => {
             <div className="w-full">
               <div className={styles["blogRightPart"]}>
                 <h3 className={styles["blogTitle"]}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                  omnis.
+                  {title}
                 </h3>
 
                 <p className={styles["blogTag"]}>
-                  <a className={styles["blogTagLink"]} href="">
-                    Java Development
+                  <a className={styles["blogTagLink"]} href="#">
+                    {categories}
                   </a>
                 </p>
                 <div className={styles["blogAuthor"]}>
-                  <span className={styles["blogAuthorName"]}>By Anna Smith</span> ●
+                  <span className={styles["blogAuthorName"]}>By {author}</span> ●
                   <span className={styles["blogReadingTime"]}> 6 min to read</span>
                 </div>
                 <p className={styles["blogDescription"]}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                  eaque libero ex quae aut soluta, quas quaerat ullam ducimus
-                  temporibus sapiente rem provident omnis atque aliquam quod
-                  dolore labore voluptatum. Dolorem repellat repudiandae hic
-                  quae quis, totam delectus quas suscipit.
+                  {description}
                 </p>
                 <div className={styles["blogReadMoreDiv"]}>
                   <a href="#" className={styles["blogReadMoreBtn"]}>
@@ -54,8 +47,6 @@ const CardBlog = () => {
           </div>
         </div>
       </div>
-    </>
-    </>
   );
 };
 

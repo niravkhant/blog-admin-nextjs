@@ -1,21 +1,20 @@
-"use client"
-import React from 'react'
-import Login from '@/components/admin/AuthComponents/Login';
-import Card1 from '@/components/admin/Card1/Card1'
-import { useAuth } from '@/context/authContext';
+"use client";
+import React from "react";
+import Login from "@/components/admin/AuthComponents/Login";
+import Card1 from "@/components/admin/Card1/Card1";
+import { useAuth } from "@/context/contextProvider";
 
 const adminmainPage = () => {
-
   const { isLoggedIN } = useAuth();
 
   if (!isLoggedIN) {
-    return <Login/>
+    return <Login />;
   }
   return (
     <div>
-      <Card1/>
+      <Card1 />
     </div>
-  )
-}
+  );
+};
 
-export default adminmainPage
+export default adminmainPage;

@@ -1,13 +1,11 @@
 // makeApiCall.js
 import axios from "axios";
 import { BASE_URL } from "./constants";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/contextProvider";
 
 function useApiCall() {
-
   const makeApiCall = async (method, endpoint, formData, onSuccess, onError, headers = {}) => {
-
-    const {setIsLoading} = useAuth();
+    const { setIsLoading } = useAuth();
     try {
       setIsLoading(true);
       const res = await axios({
@@ -21,13 +19,11 @@ function useApiCall() {
     } catch (error) {
       setIsLoading(false);
       onError(error);
-    }
-    finally{
+    } finally {
       setIsLoading(false);
     }
   };
-return {makeApiCall};
-
+  return { makeApiCall };
 }
 
 export default useApiCall;

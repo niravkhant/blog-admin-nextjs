@@ -4,22 +4,14 @@ import styles from "@/components/admin/AllPosts/AllPosts.module.css";
 import Link from "next/link";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { Bounce, toast } from "react-toastify";
+import { useAuth } from "@/context/contextProvider";
 
 const AllPosts = () => {
   const [deletePostId, setDeletePostId] = useState();
-  const [blogs, setBlogs] = useState();
   
   const [deleteModal, setdeleteModal] = useState(false);
-  const fetchAllBlogs = async () => {
-    const onSuccess = (res) => {
-      console.log(res);
-      setBlogs(res.data);
-    };
-    const onError = (error) => {
-      console.error("Error 409: Blogs Fetch error", error);
-    };
-    await makeApiCall("GET", "blog/get-all-blogs", {}, onSuccess, onError);
-  };
+  const { fetchAllBlogs, blogs } = useAuth();
+
  
   const handleDeletePost = async () => {
     const onSuccess = (res) => {
@@ -36,9 +28,6 @@ const AllPosts = () => {
     await makeApiCall("DELETE", `blog/delete-blog/${deletePostId}`, {}, onSuccess, onError);
     setdeleteModal(false);
   };
-  useEffect(() => {
-    fetchAllBlogs();
-  }, []);
 // MARK: return code
   return (
     <>
@@ -96,7 +85,7 @@ const AllPosts = () => {
                       <tr key={item._id} className="divide-x divide-gray-200">
                         <td className=" px-2 py-2">
                           <div className="w-full h-auto">
-                            <img className="object-cover h-full w-full" src={item.image} alt="blog cover" />
+                            <img className="object-cover h-full w-full" src={item?.image} alt="blog cover" />
                           </div>
                         </td>
                         <td className=" px-6 py-2">

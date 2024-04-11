@@ -1,13 +1,16 @@
 "use client";
 import Cookies from "js-cookie";
-import AuthContext from "./context";
+import Context from "./context";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { useContext, useEffect, useState } from "react";
 
-export const AuthProvider = ({ children }) => {
+export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("accessToken"));
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState(null)
   let isLoggedIN = !!token;
 
   const setAccessTokenCookies = (token) => {
@@ -49,14 +52,34 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
+
+  const fetchAllBlogs = async () => {
+    const onSuccess = (res) => {
+      setBlogs(res?.data)
+    }
+    const onError = (error) => {
+      setError(error)
+      console.error("Error 409: Blogs Fetch error", error);
+    }
+    try {
+      setIsLoading(true)
+      await makeApiCall("GET", "blog/get-all-blogs", {}, onSuccess, onError)
+      setIsLoading(false)
+    } catch (error) {
+      onError(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     userAuthentication();
+    fetchAllBlogs();
   }, [token]);
 
   return (
-    <AuthContext.Provider
+    <Context.Provider
       value={{
         isLoggedIN,
         setAccessTokenCookies,
@@ -67,13 +90,15 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser,
         isLoading,
         setIsLoading,
+        fetchAllBlogs,
+        blogs
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </Context.Provider>
   );
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(Context);
 };

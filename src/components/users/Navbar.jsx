@@ -2,16 +2,16 @@
 import { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/contextProvider";
 
 // Profile Dropdown
 const ProfileDropDown = (props) => {
   const [state, setState] = useState(false);
   const profileRef = useRef();
-  const {currentUser} = useAuth();
-console.log(currentUser)
+  const { currentUser } = useAuth();
+  console.log(currentUser);
   const navigation = [
-    { title: "Dashboard", path: "javascript:void(0)" },
+    { title: "Dashboard", path: "/admin" },
     { title: "Settings", path: "javascript:void(0)" },
     { title: "Log out", path: "admin/logout" },
   ];
@@ -24,10 +24,7 @@ console.log(currentUser)
           className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600"
           onClick={() => setState(!state)}
         >
-          <img
-            src="/images/profile.png"
-            className="w-full h-full rounded-full"
-          />
+          <img src="/images/profile.png" className="w-full h-full rounded-full" />
         </button>
         <div className="">
           <span className="block">{currentUser?.fullname}</span>
@@ -41,11 +38,7 @@ console.log(currentUser)
       >
         {navigation.map((item, idx) => (
           <li>
-            <Link
-              key={idx}
-              className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5"
-              href={item.path}
-            >
+            <Link key={idx} className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5" href={item.path}>
               {item.title}
             </Link>
           </li>
@@ -58,7 +51,7 @@ console.log(currentUser)
 const Navbar = () => {
   const pathname = usePathname();
   // console.log(pathname);
-  const {isLoggedIN} = useAuth();
+  const { isLoggedIN } = useAuth();
 
   if (pathname.startsWith("/admin")) {
     return;
@@ -82,11 +75,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex-1 flex items-center justify-between">
-          <div
-            className={`bg-white absolute z-20 w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none ${
-              menuState ? "" : "hidden"
-            }`}
-          >
+          <div className={`bg-white absolute z-20 w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none ${menuState ? "" : "hidden"}`}>
             <ul className="mt-12 space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
               {navigation.map((item, idx) => (
                 <li key={idx} className="text-gray-600 hover:text-gray-900">
@@ -105,66 +94,34 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <input
-                className="w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto"
-                type="text"
-                placeholder="Search"
-              />
+              <input className="w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto" type="text" placeholder="Search" />
             </form>
 
-            {isLoggedIN ?
+            {isLoggedIN ? (
               <>
-            <ProfileDropDown class="hidden lg:block" />
-            <button
-              className="outline-none text-gray-400 block lg:hidden"
-              onClick={() => setMenuState(!menuState)}
-            >
-              {menuState ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
-              )}
-            </button>
-            </> 
-            : <Link
-              href="/admin"
-              className="w-full py-3 px-4 font-medium text-sm text-center text-white bg-black hover:bg-black/80 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
-            >
-              Login
-            </Link>}     
+                <ProfileDropDown class="hidden lg:block" />
+                <button className="outline-none text-gray-400 block lg:hidden" onClick={() => setMenuState(!menuState)}>
+                  {menuState ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                  )}
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/admin"
+                className="w-full py-3 px-4 font-medium text-sm text-center text-white bg-black hover:bg-black/80 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
