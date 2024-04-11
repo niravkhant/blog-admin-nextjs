@@ -2,7 +2,7 @@ import  { useState } from 'react'
 import { makeApiCall } from '@/utils/makeApiCall';
 import { Bounce, toast } from "react-toastify";
 
-const AddCategory = ({onclick}) => {
+const AddCategory = ({onclick, afterSubmitCall}) => {
   const [formData, setFormData] = useState({name: ""});
 
   const handleInputChange = (e) => {
@@ -21,6 +21,7 @@ const AddCategory = ({onclick}) => {
       console.log(res);
       setFormData({name: ""});
       console.log("Category created successfully");
+      afterSubmitCall
     };
     const onError = (error) => {
       console.error("Error 400: Error in creating category", error.response);

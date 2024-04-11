@@ -223,7 +223,7 @@ const AddPost = () => {
         {isLoading && <Loader2 />}
       </section>
       {modalShow === "addcategory" && (
-        <AddCategory onclick={() => setModalShow(false)}/>
+        <AddCategory onclick={() => setModalShow(false)} afterSubmitCall={fetchAllCategory()}/>
       )}
     </>
   );
