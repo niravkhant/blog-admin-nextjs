@@ -119,7 +119,7 @@ const AllPosts = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-4 py-2 text-right text-sm font-medium">
-                          <Link href="/admin/all-posts/edit-post" className="text-gray-500 hover:text-indigo-600">
+                          <Link href={`/admin/edit-post/${item.slug}`} className="text-gray-500 hover:text-indigo-600">
                             Edit
                           </Link>
                         </td>

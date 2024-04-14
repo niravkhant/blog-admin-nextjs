@@ -11,6 +11,6 @@ export async function getData(endpoint) {
     throw new Error("Failed to fetch data getData()");
   }
 
-  // const data = await res.json();
-  return await res.json();
+  const data = await res.json();
+  return data;
 }

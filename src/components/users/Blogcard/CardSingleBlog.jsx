@@ -1,7 +1,8 @@
 import styles from "@/components/users/Blogcard/CardSingleBlog.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
-const CardBlog = ({key,author,categories,description,image,title}) => {
+const CardBlog = ({key,author,categories,description,image,title, url=""}) => {
   return (
       <div className={styles["blogCardWidth"]} key={key}>
         <div className={`${styles["blogCardMain"]} ${styles["halfWidthCard"]}`}>
@@ -22,7 +23,7 @@ const CardBlog = ({key,author,categories,description,image,title}) => {
             <div className="w-full">
               <div className={styles["blogRightPart"]}>
                 <h3 className={styles["blogTitle"]}>
-                  {title}
+                  <Link href={url}>{title}</Link> 
                 </h3>
 
                 <p className={styles["blogTag"]}>

@@ -20,6 +20,7 @@ const CardContainer = async () => {
               description={item.description}
               image={item.image}
               title={item.title}
+              url={`/${item?.slug}`}
             />
           )
       )}

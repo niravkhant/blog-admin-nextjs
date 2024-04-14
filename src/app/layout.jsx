@@ -4,6 +4,7 @@ import Navbar from "@/components/users/Navbar";
 import { ContextProvider } from "@/context/ContextProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/users/Footer";
 
 const inter = Work_Sans({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         <ContextProvider>
           <Navbar />
           {children}
+          <Footer/>
           <ToastContainer
             position="top-right"
             autoClose={3000}
