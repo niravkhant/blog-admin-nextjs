@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { makeApiCall } from "@/utils/makeApiCall";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 import Loader2 from "@/components/loader/Loader2";
 import { useRouter } from "next/navigation";
 import { Bounce, toast } from "react-toastify";

@@ -1,7 +1,7 @@
 // register component
 "use client";
 import Loader2 from "@/components/loader/Loader2";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 import { makeApiCall } from "@/utils/makeApiCall";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

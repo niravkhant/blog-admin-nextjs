@@ -4,15 +4,14 @@ import styles from "@/components/admin/AllPosts/AllPosts.module.css";
 import Link from "next/link";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { Bounce, toast } from "react-toastify";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 
 const AllPosts = () => {
   const [deletePostId, setDeletePostId] = useState();
-  
+
   const [deleteModal, setdeleteModal] = useState(false);
   const { fetchAllBlogs, blogs } = useAuth();
 
- 
   const handleDeletePost = async () => {
     const onSuccess = (res) => {
       setDeletePostId(null);
@@ -28,7 +27,7 @@ const AllPosts = () => {
     await makeApiCall("DELETE", `blog/delete-blog/${deletePostId}`, {}, onSuccess, onError);
     setdeleteModal(false);
   };
-// MARK: return code
+  // MARK: return code
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-2">

@@ -1,6 +1,6 @@
 "use client";
 import Cookies from "js-cookie";
-import Context from "./context";
+import Context from "./Context";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { useContext, useEffect, useState } from "react";
 

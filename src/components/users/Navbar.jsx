@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 
 // Profile Dropdown
 const ProfileDropDown = (props) => {

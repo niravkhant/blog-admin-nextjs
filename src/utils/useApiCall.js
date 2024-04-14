@@ -1,7 +1,7 @@
 // makeApiCall.js
 import axios from "axios";
 import { BASE_URL } from "./constants";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 
 function useApiCall() {
   const makeApiCall = async (method, endpoint, formData, onSuccess, onError, headers = {}) => {

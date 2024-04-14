@@ -1,7 +1,7 @@
 // logout.jsx
 "use client";
 import { useEffect } from "react";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 import { useRouter } from "next/navigation";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { Bounce, toast } from "react-toastify";

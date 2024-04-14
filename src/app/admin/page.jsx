@@ -2,7 +2,7 @@
 import React from "react";
 import Login from "@/components/admin/AuthComponents/Login";
 import Card1 from "@/components/admin/Card1/Card1";
-import { useAuth } from "@/context/contextProvider";
+import { useAuth } from "@/context/ContextProvider";
 
 const adminmainPage = () => {
   const { isLoggedIN } = useAuth();
