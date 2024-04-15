@@ -18,7 +18,7 @@ const SingleBlog = ({ description, title, updatedAt, image }) => {
                   <Image className="mb-5 block w-full rounded-lg" src={image} alt="blog detail" width={500} height={500} />
                   <span className="mb-5 block text-gray-500">Last updated: {formatDate(updatedAt)}</span>
                   <h4 className="mb-5 text-3xl font-semibold text-gray-900">{title}</h4>
-                  <p className="max-w-xl text-lg text-gray-500">{description}</p>
+                  <p className="w-full text-lg text-gray-500">{description}</p>
            
               </a>
             </div>

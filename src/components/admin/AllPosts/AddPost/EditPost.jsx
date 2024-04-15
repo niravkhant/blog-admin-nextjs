@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 import { Bounce, toast } from "react-toastify";
 import AddCategory from "@/components/common/AddCategory";
 
-const AddPost = () => {
+const AddPost = async ({data}) => {
+  console.log(data)
   const router = useRouter();
   const { isLoading, setIsLoading } = useAuth();
   const [formData, setFormData] = useState({
@@ -80,6 +81,13 @@ const AddPost = () => {
   };
   useEffect(() => {
     fetchAllCategory();
+    setFormData({
+      title: data.title,
+      description: data.description,
+      categories: data.categories,
+      image: data.image,
+      status: data.status,
+    })
   }, []);
   return (
     <>
@@ -182,11 +190,11 @@ const AddPost = () => {
                   </div>
                   <div className="mt-2 flex gap-4 items-center">
                     <div className="flex gap-2">
-                      <input type="radio" name="status" id="active" value="active" onChange={handleInputChange} />
+                      <input type="radio" name="status" id="active" value="active" onChange={handleInputChange} checked={formData.status === "active"} />
                       <label htmlFor="active">Active</label>
                     </div>
                     <div className="flex gap-2">
-                      <input type="radio" name="status" id="inactive" value="inactive" onChange={handleInputChange} />
+                      <input type="radio" name="status" id="inactive" value="inactive" onChange={handleInputChange} checked={formData.status === "inactive"} />
                       <label htmlFor="inactive">Inactive</label>
                     </div>
                   </div>
