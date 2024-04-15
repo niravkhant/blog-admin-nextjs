@@ -52,7 +52,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: "#",
       name: "Transactions",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -67,7 +67,7 @@ const Sidebar = () => {
   ];
   const navsFooter = [
     {
-      href: "javascript:void(0)",
+      href: "#",
       name: "Help",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -80,7 +80,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: "#",
       name: "Settings",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -160,7 +160,7 @@ const Sidebar = () => {
                 <img src="/images/profile.png" className="w-12 h-12 rounded-full" />
                 <div>
                   <span className="block text-gray-700 text-sm font-semibold">{currentUser?.fullname}</span>
-                  <a href="javascript:void(0)" className="block mt-px text-gray-600 hover:text-indigo-600 text-xs">
+                  <a href="#" className="block mt-px text-gray-600 hover:text-indigo-600 text-xs">
                     View profile
                   </a>
                 </div>

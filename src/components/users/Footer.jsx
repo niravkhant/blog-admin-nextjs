@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link"
 
 const Footer = () => {
   return (
@@ -6,40 +7,40 @@ const Footer = () => {
         <div className="container relative z-10 mx-auto px-4">
           <div className="-m-8 flex flex-wrap items-center justify-between">
             <div className="w-auto p-8">
-              <a href="#">
+              <Link href="/">
                 <div className="inline-flex items-center">
                   <span className="ml-4 text-xl font-extrabold">Blog Admin</span>
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="w-auto p-8">
               <ul className="-m-5 flex flex-wrap items-center">
                 <li className="p-5">
-                  <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                  <Link className="font-medium text-gray-600 hover:text-gray-700" href="#">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li className="p-5">
-                  <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                  <Link className="font-medium text-gray-600 hover:text-gray-700" href="#">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li className="p-5">
-                  <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                  <Link className="font-medium text-gray-600 hover:text-gray-700" href="#">
                     Return Policy
-                  </a>
+                  </Link>
                 </li>
                 <li className="p-5">
-                  <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                  <Link className="font-medium text-gray-600 hover:text-gray-700" href="#">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="w-auto p-8">
               <div className="-m-1.5 flex flex-wrap">
                 <div className="w-auto p-1.5">
-                  <a href="#">
+                  <Link href="#">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
                       <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -48,10 +49,10 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="w-auto p-1.5">
-                  <a href="#">
+                  <Link href="#">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
                       <svg width={14} height={11} viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -60,10 +61,10 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="w-auto p-1.5">
-                  <a href="#">
+                  <Link href="#">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
                       <svg width={16} height={15} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -72,7 +73,7 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

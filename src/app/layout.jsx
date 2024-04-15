@@ -1,10 +1,14 @@
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/users/Navbar";
+// import Navbar from "@/components/users/Navbar";
 import { ContextProvider } from "@/context/ContextProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/users/Footer";
+import dynamic from "next/dynamic";
+import NextTopLoader from "nextjs-toploader";
+
+const Navbar = dynamic(() => import("@/components/users/Navbar"), { ssr: false });
 
 const inter = Work_Sans({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -21,9 +25,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning={true}>
         <ContextProvider>
+          <NextTopLoader color="#f11946" />
           <Navbar />
           {children}
-          <Footer/>
+          <Footer />
           <ToastContainer
             position="top-right"
             autoClose={3000}

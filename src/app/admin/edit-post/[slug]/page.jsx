@@ -4,9 +4,8 @@ import { getData } from "@/lib/data";
 
 const editPostPage = async ({ params }) => {
   const blogdata = await getData(`blog/blog-detail/${params.slug}`);
-  console.log(blogdata?.data);
   // const { data } = blogdata;
-  return <EditPost data={blogdata?.data} />;
+  return <EditPost data={blogdata?.data} sludId={params.slug} />;
 };
 
 export default editPostPage;

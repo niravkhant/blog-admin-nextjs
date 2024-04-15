@@ -1,4 +1,5 @@
-import Sidebar from "@/components/admin/Sidebar";
+import dynamic from 'next/dynamic'
+const Sidebar = dynamic(() => import('@/components/admin/Sidebar'), { ssr: false })
 
 export const metadata = {
   title: "Blog Admin Pannel",

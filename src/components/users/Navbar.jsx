@@ -11,7 +11,7 @@ const ProfileDropDown = (props) => {
   const { currentUser } = useAuth();
   const navigation = [
     { title: "Dashboard", path: "/admin" },
-    { title: "Settings", path: "javascript:void(0)" },
+    { title: "Settings", path: "#" },
     { title: "Log out", path: "admin/logout" },
   ];
 
@@ -36,8 +36,8 @@ const ProfileDropDown = (props) => {
         }`}
       >
         {navigation.map((item, idx) => (
-          <li>
-            <Link key={idx} className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5" href={item.path}>
+          <li key={idx}>
+            <Link className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5" href={item.path}>
               {item.title}
             </Link>
           </li>
@@ -49,7 +49,6 @@ const ProfileDropDown = (props) => {
 
 const Navbar = () => {
   const pathname = usePathname();
-  // console.log(pathname);
   const { isLoggedIN } = useAuth();
 
   if (pathname.startsWith("/admin")) {
@@ -58,12 +57,11 @@ const Navbar = () => {
 
   const [menuState, setMenuState] = useState(false);
 
-  // Replace javascript:void(0) path with your path
   const navigation = [
     { title: "Home", path: "/" },
-    { title: "Latest Posts", path: "javascript:void(0)" },
-    { title: "About us", path: "javascript:void(0)" },
-    { title: "Contact us", path: "javascript:void(0)" },
+    { title: "Latest Posts", path: "#" },
+    { title: "About us", path: "#" },
+    { title: "Contact us", path: "#" },
   ];
   return (
     <div className="bg-white border-b">
@@ -82,7 +80,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <ProfileDropDown class="mt-5 pt-5 border-t lg:hidden" />
+            {/* <ProfileDropDown className="mt-5 pt-5 border-t lg:hidden" /> */}
           </div>
           <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
             <form className="flex items-center space-x-2 border rounded-md p-2">
@@ -100,7 +98,7 @@ const Navbar = () => {
 
             {isLoggedIN ? (
               <>
-                <ProfileDropDown class="hidden lg:block" />
+                <ProfileDropDown className="hidden lg:block" />
                 <button className="outline-none text-gray-400 block lg:hidden" onClick={() => setMenuState(!menuState)}>
                   {menuState ? (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

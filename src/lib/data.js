@@ -1,7 +1,6 @@
 import { BASE_URL } from "@/utils/constants";
 import Cookies from "js-cookie";
 export async function getData(endpoint) {
-  debugger
   const res = await fetch(`${BASE_URL}/${endpoint}`);
 
   if (!res.ok) {

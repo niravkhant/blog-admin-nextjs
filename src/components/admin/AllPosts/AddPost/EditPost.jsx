@@ -4,13 +4,10 @@ import { useEffect, useState } from "react";
 import { makeApiCall } from "@/utils/makeApiCall";
 import { useAuth } from "@/context/ContextProvider";
 import Loader2 from "@/components/loader/Loader2";
-import { useRouter } from "next/navigation";
 import { Bounce, toast } from "react-toastify";
 import AddCategory from "@/components/common/AddCategory";
 
-const AddPost = async ({data}) => {
-  console.log(data)
-  const router = useRouter();
+const EditPost = ({ data, sludId }) => {
   const { isLoading, setIsLoading } = useAuth();
   const [formData, setFormData] = useState({
     title: "",
@@ -29,7 +26,6 @@ const AddPost = async ({data}) => {
     } else {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
-      console.log(name, value);
     }
   };
   const handleSubmit = (e) => {
@@ -39,39 +35,36 @@ const AddPost = async ({data}) => {
         progress: undefined,
         transition: Bounce,
       });
-      console.log(res);
-      setFormData({
-        title: "",
-        description: "",
-        categories: "",
-        image: "",
-        status: "",
-      });
-      router.push("/admin/all-posts");
-      console.log("Post created successfully");
+      console.log("Post updated successfully");
     };
     const onError = (error) => {
-      console.error("Error 400: Error in creating new post", error.response);
-      toast.error(`${error.response.data.message}`, {
-        progress: undefined,
-        transition: Bounce,
-      });
+      if (error.response.data.statusCode === 500) {
+        toast.error(`Image is required`, {
+          progress: undefined,
+          transition: Bounce,
+        });
+      } else {
+        console.error("Error 400: Error in updating post", error.response);
+        toast.error(`${error.response.data.message}`, {
+          progress: undefined,
+          transition: Bounce,
+        });
+      }
     };
 
     // setIsLoading(true);
-    makeApiCall("POST", "blog/create-blog", formData, onSuccess, onError);
+    makeApiCall("PATCH", `blog/update-blog/${sludId}`, formData, onSuccess, onError);
     // setIsLoading(false);
   };
 
-  const fetchAllCategory = async () => {
+  const fetchAllCategory = () => {
     const onSuccess = (res) => {
-      console.log(res);
       setBlogCategory(res.data);
     };
     const onError = (error) => {
       console.error("Error 409: Blog Categories Fetch error", error);
     };
-    await makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
+    makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
   };
 
   const handlePopupOpen = (e) => {
@@ -85,10 +78,9 @@ const AddPost = async ({data}) => {
       title: data.title,
       description: data.description,
       categories: data.categories,
-      image: data.image,
       status: data.status,
-    })
-  }, []);
+    });
+  }, [data]);
   return (
     <>
       <section>
@@ -149,11 +141,13 @@ const AddPost = async ({data}) => {
                       value={formData.categories}
                       onChange={handleInputChange}
                     >
-                      <option className="text-gray-400" value="" disabled selected hidden>
+                      <option className="text-gray-400" value="" disabled defaultValue hidden>
                         Select Category
                       </option>
-                      {blogCategory?.map((category) => (
-                        <option value={category.name}>{category.name}</option>
+                      {blogCategory?.map((category, index) => (
+                        <option key={index} value={category.name}>
+                          {category.name}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -190,11 +184,25 @@ const AddPost = async ({data}) => {
                   </div>
                   <div className="mt-2 flex gap-4 items-center">
                     <div className="flex gap-2">
-                      <input type="radio" name="status" id="active" value="active" onChange={handleInputChange} checked={formData.status === "active"} />
+                      <input
+                        type="radio"
+                        name="status"
+                        id="active"
+                        value="active"
+                        onChange={handleInputChange}
+                        checked={formData.status === "active"}
+                      />
                       <label htmlFor="active">Active</label>
                     </div>
                     <div className="flex gap-2">
-                      <input type="radio" name="status" id="inactive" value="inactive" onChange={handleInputChange} checked={formData.status === "inactive"} />
+                      <input
+                        type="radio"
+                        name="status"
+                        id="inactive"
+                        value="inactive"
+                        onChange={handleInputChange}
+                        checked={formData.status === "inactive"}
+                      />
                       <label htmlFor="inactive">Inactive</label>
                     </div>
                   </div>
@@ -205,7 +213,7 @@ const AddPost = async ({data}) => {
                     onClick={handleSubmit}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Add new post
+                    Update post
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -234,4 +242,4 @@ const AddPost = async ({data}) => {
   );
 };
 
-export default AddPost;
+export default EditPost;

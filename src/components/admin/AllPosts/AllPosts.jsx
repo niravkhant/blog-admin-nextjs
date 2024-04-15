@@ -19,7 +19,6 @@ const AllPosts = () => {
         transition: Bounce,
       });
       fetchAllBlogs();
-      console.log(res);
     };
     const onError = (error) => {
       console.error("Error 409: Blogs delete error", error);

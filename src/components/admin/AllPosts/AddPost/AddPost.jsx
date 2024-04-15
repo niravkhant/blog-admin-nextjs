@@ -28,7 +28,6 @@ const AddPost = () => {
     } else {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
-      console.log(name, value);
     }
   };
   const handleSubmit = (e) => {
@@ -38,7 +37,6 @@ const AddPost = () => {
         progress: undefined,
         transition: Bounce,
       });
-      console.log(res);
       setFormData({
         title: "",
         description: "",
@@ -62,15 +60,14 @@ const AddPost = () => {
     // setIsLoading(false);
   };
 
-  const fetchAllCategory = async () => {
+  const fetchAllCategory = () => {
     const onSuccess = (res) => {
-      console.log(res);
       setBlogCategory(res.data);
     };
     const onError = (error) => {
       console.error("Error 409: Blog Categories Fetch error", error);
     };
-    await makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
+     makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
   };
 
   const handlePopupOpen = (e) => {
@@ -141,11 +138,11 @@ const AddPost = () => {
                       value={formData.categories}
                       onChange={handleInputChange}
                     >
-                      <option className="text-gray-400" value="" disabled selected hidden>
+                      <option className="text-gray-400" value="" disabled defaultChecked hidden>
                         Select Category
                       </option>
-                      {blogCategory?.map((category) => (
-                        <option value={category.name}>{category.name}</option>
+                      {blogCategory?.map((category, index) => (
+                        <option key={index} value={category.name}>{category.name}</option>
                       ))}
                     </select>
                   </div>
