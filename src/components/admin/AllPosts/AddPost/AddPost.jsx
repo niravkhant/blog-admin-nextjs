@@ -55,9 +55,9 @@ const AddPost = () => {
       });
     };
 
-    // setIsLoading(true);
+    setIsLoading(true);
     makeApiCall("POST", "blog/create-blog", formData, onSuccess, onError);
-    // setIsLoading(false);
+    setIsLoading(false);
   };
 
   const fetchAllCategory = () => {
