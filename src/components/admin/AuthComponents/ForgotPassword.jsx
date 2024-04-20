@@ -1,4 +1,4 @@
-// register component
+//login component
 "use client";
 import Loader2 from "@/components/loader/Loader2";
 import { useAuth } from "@/context/ContextProvider";
@@ -6,16 +6,15 @@ import { makeApiCall } from "@/utils/makeApiCall";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { toast, Bounce } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 
-const Register = () => {
-  const { isLoading, setIsLoading } = useAuth();
+const Login = () => {
   const router = useRouter();
+
+  const { setAccessTokenCookies, isLoading, setIsLoading } = useAuth();
+
   const [formData, setFormData] = useState({
-    username: "",
-    fullname: "",
     email: "",
-    password: "",
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,33 +24,35 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
+      setAccessTokenCookies(res.data.accessToken);
       toast.success(res.message, {
         progress: undefined,
         transition: Bounce,
       });
+      router.push("admin/dashboard");
+      console.log(res);
       setFormData({
-        username: "",
-        fullname: "",
         email: "",
         password: "",
       });
-      router.push("/admin");
     };
     const onError = (error) => {
-      console.error("Error 409: Frontend form submit", error);
+      console.error("Error 409: Frontend Login Error", error);
       toast.error(`${error.response.data.message}`, {
         progress: undefined,
         transition: Bounce,
       });
-      // setIsLoading(false);
     };
     setIsLoading(true);
-   await makeApiCall("POST", "users/register", formData, onSuccess, onError);
+    await makeApiCall("POST", "", formData, onSuccess, onError);
     setIsLoading(false);
   };
+
+  // if(isLoading) return <Loader2 />
+
   return (
     <section>
-      <div className="absolute inset-0 flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
           <div className="mb-2 flex justify-center">
             <svg width={50} height={56} viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,48 +62,18 @@ const Register = () => {
               />
             </svg>
           </div>
-          <h2 className="text-center text-2xl font-bold leading-tight text-black">Sign up to Blog Admin</h2>
-          <p className="mt-2 text-center text-base text-gray-600">
-            Already have an account?
-            <Link href="/login" className="font-medium text-black transition-all duration-200 hover:underline">
-              Sign In
+          <h2 className="text-center text-2xl font-bold leading-tight text-black">Forgot Password ?</h2>
+          <p className="mt-2 text-center text-sm text-gray-600 ">
+            Back to? &nbsp;
+            <Link href="/admin" title="" className="font-semibold text-black transition-all duration-200 hover:underline">
+               Login
             </Link>
           </p>
-          <form action="#" className="mt-8">
+          <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="name" className="text-base font-medium text-gray-900">
-                  username
-                </label>
-                <div className="mt-2">
-                  <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="text"
-                    placeholder="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="name" className="text-base font-medium text-gray-900">
-                  Full Name
-                </label>
-                <div className="mt-2">
-                  <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="text"
-                    placeholder="Full Name"
-                    name="fullname"
-                    value={formData.fullname}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="text-base font-medium text-gray-900">
-                  Email address
+                <label htmlFor="" className="text-base font-medium text-gray-900">
+                  Registered Email
                 </label>
                 <div className="mt-2">
                   <input
@@ -116,29 +87,14 @@ const Register = () => {
                 </div>
               </div>
               <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="text-base font-medium text-gray-900">
-                    Password
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                  />
-                </div>
               </div>
               <div>
                 <button
                   type="button"
-                  onClick={handleSubmit}
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  onClick={handleSubmit}
                 >
-                  Create Account
+                  Send Reset Password Link
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={16}
@@ -164,4 +120,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

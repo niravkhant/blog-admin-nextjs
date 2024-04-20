@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("accessToken"));
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null)

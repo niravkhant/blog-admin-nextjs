@@ -11,7 +11,7 @@ import { Bounce, toast } from "react-toastify";
 const Login = () => {
   const router = useRouter();
 
-  const { setAccessTokenCookies, isLoading } = useAuth();
+  const { setAccessTokenCookies, isLoading, setIsLoading } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,19 +22,12 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
       setAccessTokenCookies(res.data.accessToken);
-      toast.success("Login Successfull", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+      toast.success(res.message, {
         progress: undefined,
-        theme: "colored",
         transition: Bounce,
       });
       router.push("admin/dashboard");
@@ -51,7 +44,9 @@ const Login = () => {
         transition: Bounce,
       });
     };
-    makeApiCall("POST", "users/login", formData, onSuccess, onError);
+    setIsLoading(true);
+    await makeApiCall("POST", "users/login", formData, onSuccess, onError);
+    setIsLoading(false);
   };
 
   // if(isLoading) return <Loader2 />
@@ -140,7 +135,6 @@ const Login = () => {
           </form>
         </div>
       </div>
-      {isLoading && <Loader2 />}
     </section>
   );
 };

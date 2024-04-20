@@ -28,7 +28,7 @@ const EditPost = ({ data, sludId }) => {
       setFormData({ ...formData, [name]: value });
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
       toast.success(`${res.message}`, {
@@ -52,19 +52,21 @@ const EditPost = ({ data, sludId }) => {
       }
     };
 
-    // setIsLoading(true);
-    makeApiCall("PATCH", `blog/update-blog/${sludId}`, formData, onSuccess, onError);
-    // setIsLoading(false);
+    setIsLoading(true);
+   await makeApiCall("PATCH", `blog/update-blog/${sludId}`, formData, onSuccess, onError);
+    setIsLoading(false);
   };
 
-  const fetchAllCategory = () => {
+  const fetchAllCategory = async () => {
     const onSuccess = (res) => {
       setBlogCategory(res.data);
     };
     const onError = (error) => {
       console.error("Error 409: Blog Categories Fetch error", error);
     };
-    makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
+    setIsLoading(true);
+    await makeApiCall("GET", "blog/get-blogcategory", {}, onSuccess, onError);
+    setIsLoading(false);
   };
 
   const handlePopupOpen = (e) => {

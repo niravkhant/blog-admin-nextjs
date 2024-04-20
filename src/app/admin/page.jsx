@@ -1,20 +1,17 @@
 "use client";
 import React from "react";
 import Login from "@/components/admin/AuthComponents/Login";
-import Card1 from "@/components/admin/Card1/Card1";
 import { useAuth } from "@/context/ContextProvider";
+import { useRouter } from "next/navigation";
 
 const adminmainPage = () => {
   const { isLoggedIN } = useAuth();
+  const router = useRouter();
 
   if (!isLoggedIN) {
     return <Login />;
   }
-  return (
-    <div>
-      <Card1 />
-    </div>
-  );
+  return router.push("/admin/dashboard");
 };
 
 export default adminmainPage;

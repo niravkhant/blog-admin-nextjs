@@ -30,7 +30,7 @@ const AddPost = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
       toast.success(`${res.message}`, {
@@ -56,7 +56,7 @@ const AddPost = () => {
     };
 
     setIsLoading(true);
-    makeApiCall("POST", "blog/create-blog", formData, onSuccess, onError);
+   await makeApiCall("POST", "blog/create-blog", formData, onSuccess, onError);
     setIsLoading(false);
   };
 

@@ -2,7 +2,7 @@ import { Work_Sans } from "next/font/google";
 import "./globals.css";
 // import Navbar from "@/components/users/Navbar";
 import { ContextProvider } from "@/context/ContextProvider";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/users/Footer";
 import dynamic from "next/dynamic";

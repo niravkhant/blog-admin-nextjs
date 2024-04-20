@@ -206,30 +206,3 @@ const AllPosts = () => {
 };
 
 export default AllPosts;
-
-// const posts = [
-//   {
-//     title: "His mother had always taught him",
-//     description:
-//       "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.",
-//     categories: "sports",
-//     status: "Active",
-//     email: "nirav@gmail.com",
-//     author: "Nirav Khant",
-//     role: "Admin",
-//     image:
-//       "https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
-//   },
-//   {
-//     title: "He was an expert but not in a discipline",
-//     description:
-//       "He was an expert but not in a discipline that anyone could fully appreciate. He knew how to hold the cone just right so that the soft server ice-cream fell into it at the precise angle to form a perfect cone each and every time. It had taken years to perfect and he could now do it without even putting any thought behind it.",
-//     categories: "sports",
-//     status: "Inactive",
-//     email: "abc@xyz.com",
-//     author: "abc xyx",
-//     role: "Admin",
-//     image:
-//       "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-//   },
-// ];

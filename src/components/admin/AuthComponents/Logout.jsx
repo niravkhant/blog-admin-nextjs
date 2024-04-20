@@ -7,17 +7,17 @@ import { makeApiCall } from "@/utils/makeApiCall";
 import { Bounce, toast } from "react-toastify";
 
 const Logout = () => {
-  const { logoutUser } = useAuth();
+  const { logoutUser, setIsLoading } = useAuth();
   const router = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const onSuccess = (res) => {
       toast.success(`${res.message}`, {
         progress: undefined,
         transition: Bounce,
       });
       console.log(res.data);
-      router.push("/admin");
+      router.push("/");
     };
     const onError = (error) => {
       console.error("Error 409: User Logout Error", error);
@@ -26,16 +26,18 @@ const Logout = () => {
         transition: Bounce,
       });
     };
-
-    makeApiCall("POST", "users/logout", {}, onSuccess, onError, {});
+    setIsLoading(true);
+   await makeApiCall("POST", "users/logout", {}, onSuccess, onError, {});
+    setIsLoading(false);
   };
 
-  useEffect(() => {
-    logoutUser();
+  useEffect( () => {
     handleLogout();
+    logoutUser();
   }, []);
 
-  return router.push("/admin");
+  // return router.push("/admin");
+
 };
 
 export default Logout;
