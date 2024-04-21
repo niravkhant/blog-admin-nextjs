@@ -64,7 +64,7 @@ const Register = () => {
           <h2 className="text-center text-2xl font-bold leading-tight text-black">Sign up to Blog Admin</h2>
           <p className="mt-2 text-center text-base text-gray-600">
             Already have an account?
-            <Link href="/login" className="font-medium text-black transition-all duration-200 hover:underline">
+            <Link href="/admin" className="font-medium text-black transition-all duration-200 hover:underline">
               Sign In
             </Link>
           </p>

@@ -10,7 +10,7 @@ import { Bounce, toast } from "react-toastify";
 const Login = () => {
   const router = useRouter();
 
-  const { setAccessTokenCookies, isLoading, setIsLoading } = useAuth();
+  const { isLoading, setIsLoading } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,27 +23,26 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const onSuccess = (res) => {
-      setAccessTokenCookies(res.data.accessToken);
       toast.success(res.message, {
         progress: undefined,
         transition: Bounce,
       });
-      router.push("admin/dashboard");
       console.log(res);
       setFormData({
         email: "",
-        password: "",
       });
     };
     const onError = (error) => {
-      console.error("Error 409: Frontend Login Error", error);
+      console.error("Error 409: Frontend Forgot Password Error", error);
+      setIsLoading(false);
       toast.error(`${error.response.data.message}`, {
         progress: undefined,
         transition: Bounce,
       });
+      
     };
     setIsLoading(true);
-    await makeApiCall("POST", "", formData, onSuccess, onError);
+    await makeApiCall("POST", "users/forgot-password", formData, onSuccess, onError);
     setIsLoading(false);
   };
 
@@ -65,7 +64,7 @@ const Login = () => {
           <p className="mt-2 text-center text-sm text-gray-600 ">
             Back to? &nbsp;
             <Link href="/admin" title="" className="font-semibold text-black transition-all duration-200 hover:underline">
-               Login
+              Login
             </Link>
           </p>
           <form action="#" method="POST" className="mt-8">
@@ -85,8 +84,7 @@ const Login = () => {
                   />
                 </div>
               </div>
-              <div>
-              </div>
+              <div></div>
               <div>
                 <button
                   type="button"
