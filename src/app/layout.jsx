@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/users/Footer";
 import dynamic from "next/dynamic";
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const Navbar = dynamic(() => import("@/components/users/Navbar"), { ssr: false });
 
@@ -41,6 +43,8 @@ export default function RootLayout({ children }) {
             pauseOnHover={false}
             theme="colored"
           />
+           <Analytics />
+           <SpeedInsights />
         </ContextProvider>
       </body>
     </html>
