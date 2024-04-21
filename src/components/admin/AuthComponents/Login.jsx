@@ -92,7 +92,7 @@ const Login = () => {
                   <label htmlFor="" className="text-base font-medium text-gray-900">
                     Password
                   </label>
-                  <a href="#" title="" className="text-sm font-semibold text-black hover:underline">
+                  <a href="admin/forgotpassword" title="" className="text-sm font-semibold text-black hover:underline">
                     Forgot password?
                   </a>
                 </div>

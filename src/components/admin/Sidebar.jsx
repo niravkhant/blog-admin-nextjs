@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/ContextProvider";
 import CommonPopup from "../common/commonPopup";
+import Popup from "../common/Popup";
 
 const Sidebar = () => {
   const [active, setActive] = useState("dashboard");
@@ -94,7 +95,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "logout",
+      href: "javascript:void(0)",
       name: "Logout",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -111,43 +112,30 @@ const Sidebar = () => {
   const { isLoggedIN } = useAuth();
 
   const handleLogout = () => {
-    router1.push("admin/logout");
+    router1.push("/admin/logout");
   };
 
   if (!isLoggedIN) {
     return;
   }
   return (
-    <nav className="fixed top-0 left-0 w-full h-full border-r bg-white space-y-8 sm:w-80 sidebar-main">
-      <div className="flex flex-col h-full">
-        <div className="h-20 flex items-center px-8">
-          <Link href="/admin" className="flex-none">
-            <h1 className="font-extrabold text-pretty text-3xl font-sans">Blog Admin</h1>
-          </Link>
-        </div>
-        <div className="flex-1 flex flex-col h-full overflow-auto">
-          <ul className="px-4 text-sm font-medium flex-1">
-            {navigation.map((item, idx) => (
-              <li key={idx}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150 menulink ${
-                    router === item.href ? "active" : ""
-                  }`}
-                >
-                  <div className="text-gray-500">{item.icon}</div>
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div>
-            <ul className="px-4 pb-4 text-sm font-medium">
-              {navsFooter.map((item, idx) => (
-                <li key={idx} onClick={item.name == "Logout" ? () => setCommonPopupOpen("logout") : ""}>
+    <>
+      <nav className="fixed top-0 left-0 w-full h-full border-r bg-white space-y-8 sm:w-80 sidebar-main">
+        <div className="flex flex-col h-full">
+          <div className="h-20 flex items-center px-8">
+            <Link href="/admin" className="flex-none">
+              <h1 className="font-extrabold text-pretty text-3xl font-sans">Blog Admin</h1>
+            </Link>
+          </div>
+          <div className="flex-1 flex flex-col h-full overflow-auto">
+            <ul className="px-4 text-sm font-medium flex-1">
+              {navigation.map((item, idx) => (
+                <li key={idx}>
                   <Link
                     href={item.href}
-                    className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
+                    className={`flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150 menulink ${
+                      router === item.href ? "active" : ""
+                    }`}
                   >
                     <div className="text-gray-500">{item.icon}</div>
                     {item.name}
@@ -155,31 +143,49 @@ const Sidebar = () => {
                 </li>
               ))}
             </ul>
-            <div className="py-4 px-4 border-t">
-              <div className="flex items-center gap-x-4">
-                <img src="/images/profile.png" className="w-12 h-12 rounded-full" />
-                <div>
-                  <span className="block text-gray-700 text-sm font-semibold">{currentUser?.fullname}</span>
-                  <a href="#" className="block mt-px text-gray-600 hover:text-indigo-600 text-xs">
-                    View profile
-                  </a>
+            <div>
+              <ul className="px-4 pb-4 text-sm font-medium">
+                {navsFooter.map((item, idx) => (
+                  <li key={idx} onClick={item.name == "Logout" ? () => setCommonPopupOpen(item.name) : ""}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
+                    >
+                      <div className="text-gray-500">{item.icon}</div>
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="py-4 px-4 border-t">
+                <div className="flex items-center gap-x-4">
+                  <img src="/images/profile.png" className="w-12 h-12 rounded-full" />
+                  <div>
+                    <span className="block text-gray-700 text-sm font-semibold">{currentUser?.fullname}</span>
+                    <a href="#" className="block mt-px text-gray-600 hover:text-indigo-600 text-xs">
+                      View profile
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {commonPopupOpen === "logout" ? (
-        <CommonPopup
-          titleMessage={"Are you want to Logout?"}
-          actionButtonText={"Logout"}
-          handleClosePopup={setCommonPopupOpen(false)}
-          handleMainEvent={handleLogout}
+      </nav>
+      {commonPopupOpen === "Logout" ? (
+        <Popup
+          // isOpen={true}
+          image={"/images/logout_icon.svg"}
+          popupMainTitle={"Are You Sure ?"}
+          popupDescriptionText={"Do you really want to logout your account?"}
+          actionButtonName={"Logout"}
+          handleActionClick={handleLogout}
+          handleClose={()=>setCommonPopupOpen(false)}
         />
       ) : (
         ""
       )}
-    </nav>
+    </>
   );
 };
 
