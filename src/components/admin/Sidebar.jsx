@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/ContextProvider";
-import CommonPopup from "../common/commonPopup";
 import Popup from "../common/Popup";
 
 const Sidebar = () => {
