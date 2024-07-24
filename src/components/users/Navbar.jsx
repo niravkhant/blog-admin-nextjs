@@ -61,7 +61,7 @@ const Navbar = () => {
     { title: "Home", path: "/" },
     { title: "Latest Posts", path: "#" },
     { title: "About us", path: "#" },
-    { title: "Contact us", path: "#" },
+    { title: "Contact us", path: "/contactus" },
   ];
   return (
     <div className="bg-white border-b">

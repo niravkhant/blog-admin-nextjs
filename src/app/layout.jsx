@@ -1,5 +1,6 @@
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
+import "./css/trix.css";
 // import Navbar from "@/components/users/Navbar";
 import { ContextProvider } from "@/context/ContextProvider";
 import { ToastContainer, Bounce } from "react-toastify";

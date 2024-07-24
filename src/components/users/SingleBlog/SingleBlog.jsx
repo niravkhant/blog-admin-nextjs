@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
-import { formatDate } from "@/utils/date";
+import { formatDate } from "@/utils/date.js";
 
 const SingleBlog = ({ description, title, updatedAt, image }) => {
   return (

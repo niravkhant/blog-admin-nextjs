@@ -1,3 +1,4 @@
+import TabChange from "@/components/TabChange";
 import SingleBlog from "@/components/users/SingleBlog/SingleBlog";
 import { getData } from "@/lib/data";
 
@@ -6,7 +7,11 @@ const singlePostPage = async ({ params }) => {
 
   const {data} = blogdata;
 
-  return <SingleBlog image={data?.image} updatedAt={data?.updatedAt} title={data?.title} description={data?.description} />;
-};
+  return (
+  <>
+  <SingleBlog image={data?.image} updatedAt={data?.updatedAt} title={data?.title} description={data?.description} />
+  <TabChange/>
+  </>
+)};
 
 export default singlePostPage;
