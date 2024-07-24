@@ -38,7 +38,8 @@
 }
 .singlecardmain {
   position: relative;
-  width: calc(33.33% - 13.33px);
+  /* width: calc(33.33% - 13.33px); */
+  width: 100%;
   padding: 10px 10px 44px 10px;
   border-radius: 14px;
   background-color: #f7f7f7;

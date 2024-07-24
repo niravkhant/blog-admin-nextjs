@@ -3,6 +3,15 @@ import { useState } from "react";
 import Image from "next/image";
 import style from "@/styles/TabChange.module.css";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination,Virtual  } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import 'swiper/css/virtual';
+
 const data = [
   {
     data_id: "Popular",
@@ -29,6 +38,14 @@ const data = [
     linkTab: "#",
   },
   {
+    data_id: "Popular",
+    titleName: "PaaS Software Development",
+    image: "https://www.mindinventory.com/img/explore-teams/saas-product-development.webp",
+    languages: ["Reactjs", "Nodejs", "MongoDB", "GCP", "Docker", "Jenkins"],
+    teamComposition: ["1 Business Analyst", "2 Front End & Backend Engineers", "2 Mobile App Programmers"],
+    linkTab: "#",
+  },
+  {
     data_id: "Product Engineering",
     titleName: "eCommerce Platform",
     image: "https://www.mindinventory.com/img/explore-teams/ecommerce-platform.webp",
@@ -42,6 +59,30 @@ const data = [
     image: "https://www.mindinventory.com/img/explore-teams/collaboration-and-communication-product.webp",
     languages: ["Reactjs", "Nodejs", "MongoDB", "GCP", "Docker", "Jenkins"],
     teamComposition: ["Business Analyst", "Front End & Backend Engineers", "Mobile App Developers", "UI/UX Designer"],
+    linkTab: "#",
+  },
+  {
+    data_id: "Product Engineering",
+    titleName: "Collaboration and Communication Product",
+    image: "https://www.mindinventory.com/img/explore-teams/collaboration-and-communication-product.webp",
+    languages: ["Reactjs", "Nodejs", "MongoDB", "GCP", "Docker", "Jenkins"],
+    teamComposition: ["Business Analyst", "Front End & Backend Engineers", "Mobile App Developers", "UI/UX Designer"],
+    linkTab: "#",
+  },
+  {
+    data_id: "SaaS",
+    titleName: "OnDemand Ride Sharing Platform",
+    image: "https://www.mindinventory.com/img/explore-teams/collaboration-and-communication-product.webp",
+    languages: ["Reactjs", "Nodejs", "MongoDB"],
+    teamComposition: ["1 Business Analyst", "2 Front End & Backend Engineers", "2 Mobile App Programmers", "1 UI/UX Designer", "1 DevOps Engineer"],
+    linkTab: "#",
+  },
+  {
+    data_id: "SaaS",
+    titleName: "OnDemand Ride Sharing Platform",
+    image: "https://www.mindinventory.com/img/explore-teams/collaboration-and-communication-product.webp",
+    languages: ["Reactjs", "Nodejs", "MongoDB"],
+    teamComposition: ["1 Business Analyst", "2 Front End & Backend Engineers", "2 Mobile App Programmers", "1 UI/UX Designer", "1 DevOps Engineer"],
     linkTab: "#",
   },
   {
@@ -83,41 +124,45 @@ const TabChange = () => {
         </div>
 
         <div className={`${style["cards-section-main"]}`}>
-          {filteredCards.map((item, index) => (
-            <div key={index} className={`${style["singlecardmain"]}`} data-id={item.data_id}>
-              <div className={`${style["cardimagediv"]}`}>
-                <Image width={500} height={220} src={item.image} alt={item.titleName} className={`${style["cardimg"]}`} />
-              </div>
-              <h4 className={`${style["cardtitle"]}`}>{item.titleName}</h4>
-              <ul className={`${style["languagediv"]}`}>
-                {item.languages.map((language, i) => (
-                  <li key={language + i} className={`${style["languageitem"]}`}>
-                    {language}
-                  </li>
-                ))}
-              </ul>
-              <div className={`${style["team-composition"]}`}>
-                <h6 className={`${style["card-subheading"]}`}>Team Composition</h6>
+          <Swiper modules={[Virtual,Navigation, Pagination]} spaceBetween={20} slidesPerView={3} autoplay={true} loop={true} >
+            {filteredCards.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className={`${style["singlecardmain"]}`} data-id={item.data_id}>
+                  <div className={`${style["cardimagediv"]}`}>
+                    <Image width={500} height={220} src={item.image} alt={item.titleName} className={`${style["cardimg"]}`} />
+                  </div>
+                  <h4 className={`${style["cardtitle"]}`}>{item.titleName}</h4>
+                  <ul className={`${style["languagediv"]}`}>
+                    {item.languages.map((language, i) => (
+                      <li key={language + i} className={`${style["languageitem"]}`}>
+                        {language}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={`${style["team-composition"]}`}>
+                    <h6 className={`${style["card-subheading"]}`}>Team Composition</h6>
 
-                <ul className={`${style["team-list"]}`}>
-                  {item.teamComposition.map((team, i) => (
-                    <li key={i} className={`${style["teamlistitem"]}`}>
-                      <span className={`${style["plus"]}`}>+</span>
-                      <span>{team}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* <img src={item.imagepath} alt={item.data_id} /> */}
-              <div className={`${style["card-bottompart"]}`}>
-                <div className={`${style["cardbtndiv"]}`}>
-                  <a href="#" className={`${style["cardactionbtn"]}`}>
-                    Get Details
-                  </a>
+                    <ul className={`${style["team-list"]}`}>
+                      {item.teamComposition.map((team, i) => (
+                        <li key={i} className={`${style["teamlistitem"]}`}>
+                          <span className={`${style["plus"]}`}>+</span>
+                          <span>{team}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* <img src={item.imagepath} alt={item.data_id} /> */}
+                  <div className={`${style["card-bottompart"]}`}>
+                    <div className={`${style["cardbtndiv"]}`}>
+                      <a href="#" className={`${style["cardactionbtn"]}`}>
+                        Get Details
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </section>
