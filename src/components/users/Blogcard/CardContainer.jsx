@@ -11,7 +11,7 @@ const CardContainer = async () => {
         (item) =>
           item.status === "active" && (
             <CardBlog
-              key={item._id}
+              key1={item._id}
               author={item.author}
               categories={item.categories}
               description={item.description}
