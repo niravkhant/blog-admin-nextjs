@@ -25,7 +25,6 @@ const FileuploadExtra = () => {
       .post(`${BASE_URL}/upload-general`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Access-Control-Allow-Origin': 'https://appcoreservices.tech'
         },
         onUploadProgress: (progressEvent) => {
           setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)));

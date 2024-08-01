@@ -9,7 +9,7 @@ const makeApiCall = async (method, endpoint, formData, onSuccess, onError, heade
       method,
       url: `${BASE_URL}/${endpoint}`,
       data: formData,
-      headers: { ...headers,  Authorization: `Bearer ${Cookies.get("accessToken")}`, 'Content-Type': 'multipart/form-data', 'Access-Control-Allow-Origin': 'https://appcoreservices.tech'},
+      headers: { ...headers,  Authorization: `Bearer ${Cookies.get("accessToken")}`, 'Content-Type': 'multipart/form-data'},
     });
     onSuccess(res?.data);
   } catch (error) {
